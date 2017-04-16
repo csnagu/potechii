@@ -1,12 +1,12 @@
-from twitter import *
-from auth_info import *
+import twitter
+import auth_info
 
-t = Twitter(auth=OAuth(access_token,
-                       access_token_secret,
-                       consumer_key,
-                       consumer_secret)
-            )
+t = twitter.Api(consumer_key = auth_info.my_consumer_key,
+                consumer_secret = auth_info.my_consumer_secret,
+                access_token_key = auth_info.my_access_token,
+                access_token_secret= auth_info.my_access_token_secret)
 try:
-    t.statuses.update(status="test read external files")
-except TwitterHTTPError as e:
+    status = t.PostUpdate("首が痛すぎる")
+    print(status.text)
+except twitter.error.TwitterError as e:
     print(e)
